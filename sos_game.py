@@ -31,6 +31,8 @@ class SOSGame:
         return self.current_piece_p1
     def get_current_piece_p2(self):
         return self.current_piece_p2
+    def get_cell(self, row, column):
+        return self.board[row][column]
 
     # @precond:
     #
