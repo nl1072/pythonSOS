@@ -32,9 +32,9 @@ def gui_move(game, row, column):
 
 
 for row in range(game.get_board_size()):
-    for col in range(game.get_board_size()):
-        gui_board[row][col] = Button(frame, text=game.get_cell(row, col), font=('Courier New',40),
+    for column in range(game.get_board_size()):
+        gui_board[row][column] = Button(frame, text=game.get_cell(row, column), font=('Courier New',40),
                                    width=5, height=2,
-                                   command= lambda row=row, col=col: gui_move(game, row,col))
-        gui_board[row][col].grid(row=row,column=col)
+                                   command= lambda row=row, col=column: gui_move(game, row,col))
+        gui_board[row][column].grid(row=row,column=column)
 window.mainloop()

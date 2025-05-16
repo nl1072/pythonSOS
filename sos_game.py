@@ -40,19 +40,15 @@ class SOSGame:
     def get_cell(self, row, column):
         return self.board[row][column]
 
-    # @precond:
-    #
-    #
-
     def make_move(self, row, column):
         """Makes a move for the current player at the specified cell, then swaps turn to the next player.
         
-        Args:
+            Args:
             row: a valid row position.
             column: a valid column position
         
         """
-        if self.board[row][column] == '_':
+        if self.board[row][column] == ' ':
             if self.current_player == self.players[0]:
                 self.board[row][column] = self.current_piece_p1
                 if self.current_piece_p1 == self.pieces[0]:
