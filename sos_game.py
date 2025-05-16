@@ -10,8 +10,8 @@ class SOSGame:
         self.game_mode = game_mode
         self.vs_computer = vs_computer
 
-        self.board = [['_' for x in range(self.board_size)] for y in range(self.board_size)]
-        self.players = ['p1','p2']
+        self.board = [[' ' for x in range(self.board_size)] for y in range(self.board_size)]
+        self.players = ['P1','P2']
         self.current_player = random.choice(self.players)
         self.pieces = ['S', 'O']
         self.current_piece_p1 = self.pieces[0]
@@ -27,10 +27,16 @@ class SOSGame:
         return self.board
     def get_current_player(self):
         return self.current_player
-    def get_current_piece_p1(self):
-        return self.current_piece_p1
-    def get_current_piece_p2(self):
-        return self.current_piece_p2
+    def get_player_piece(self, player):
+        if player == 'P1':
+            return self.current_piece_p1
+        if player == 'P2':
+            return self.current_piece_p2
+    def get_current_player_piece(self):
+        if self.current_player == 'P1':
+            return self.current_piece_p1
+        if self.current_player == 'P2':
+            return self.current_piece_p2
     def get_cell(self, row, column):
         return self.board[row][column]
 
