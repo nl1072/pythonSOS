@@ -7,7 +7,7 @@ class SOSGame:
         if board_size <= 2:
             raise RuntimeError('board_size must be greater than or equal to 3')
         self.board_size = board_size
-        self.game_mode = game_mode
+        self.gamemode = game_mode
         self.vs_computer = vs_computer
 
         self.board = [[' ' for x in range(self.board_size)] for y in range(self.board_size)]
@@ -19,8 +19,8 @@ class SOSGame:
 
     def get_board_size(self):
         return self.board_size
-    def get_game_mode(self):
-        return self.game_mode
+    def get_gamemode(self):
+        return self.gamemode
     def get_vs_computer(self):
         return self.vs.computer
     def get_board(self):
@@ -70,7 +70,7 @@ class SOSGame:
 
     def new_game(self):
         """Starts a new game"""
-        self.__init__(self.board_size, self.game_mode, self.vs_computer)
+        self.__init__(self.board_size, self.gamemode, self.vs_computer)
 
     def print_board(self):
         for row in range(self.board_size):
