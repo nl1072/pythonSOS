@@ -20,12 +20,10 @@ game = SOSGame(test_board_size, test_gamemode, test_vs_computer)
 # create Label to display current player's turn
 label = Label(text=(game.get_current_player() + '\'s turn'), font=('Courier New', 40))
 label.pack(side='top')
-#label.grid(row=0, column=1)
 
 # create Frame for window
 frame = Frame(window)
 frame.pack()
-#frame.grid()
 
 
 # initialize array for game board
@@ -59,12 +57,10 @@ def gui_change_gamemode(game):
 # create new game button
 reset_button = Button(text='restart', font=('Courier New',20), command=gui_reset)
 reset_button.pack(side='bottom', pady=10)
-#reset_button.grid(row=5,column=0)
 
 # create radio buttons to change game mode
 gamemode_simple_radiobutton = Radiobutton(variable=gui_gamemode, value=0, text='Simple game', cursor='hand2')
 gamemode_simple_radiobutton.pack(side='left', padx=10, before=frame)
-#gamemode_simple_radiobutton.grid(row=2, column=0)
 gamemode_general_radiobutton = Radiobutton(variable=gui_gamemode, value=1, text='General game', cursor='hand2')
 gamemode_general_radiobutton.pack(side='left', padx=10, before=frame)
 
