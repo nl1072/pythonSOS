@@ -70,6 +70,7 @@ class SOSGame:
 
     def new_game(self):
         """Starts a new game"""
+        self.__init__(self.board_size, self.game_mode, self.vs_computer)
 
     def print_board(self):
         for row in range(self.board_size):
