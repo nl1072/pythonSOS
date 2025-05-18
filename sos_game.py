@@ -39,6 +39,13 @@ class SOSGame:
             return self.current_piece_p2
     def get_cell(self, row, column):
         return self.board[row][column]
+    
+    def set_board_size(self, new_board_size):
+        self.board_size = new_board_size
+    def set_gamemode(self, new_gamemode):
+        self.gamemode = new_gamemode
+    def set_vs_computer(self, new_vs_computer):
+        self.vs_computer = new_vs_computer
 
     def make_move(self, row, column):
         """Makes a move for the current player at the specified cell, then swaps turn to the next player.
@@ -68,7 +75,7 @@ class SOSGame:
     def check_winner(self):
         """Checks if a player has won"""
 
-    def new_game(self):
+    def new_game(self,):
         """Starts a new game"""
         self.__init__(self.board_size, self.gamemode, self.vs_computer)
 
