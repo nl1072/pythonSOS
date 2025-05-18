@@ -16,6 +16,8 @@ class SOSGame:
         self.pieces = ['S', 'O']
         self.current_piece_p1 = self.pieces[0]
         self.current_piece_p2 = self.pieces[0]
+        self.p1_score = 0
+        self.p2_score = 0
 
     def get_board_size(self):
         return self.board_size
@@ -47,67 +49,130 @@ class SOSGame:
     def set_vs_computer(self, new_vs_computer):
         self.vs_computer = new_vs_computer
 
-        def check_trio(self, gamemode, last_played_letter, last_played_row, last_played_column, trio_token='SOS',):
-            """Checks if there is a valid trio.
-            
-            Args:
-                gamemode: a valid gamemode.
-                last_played_letter: the last letter placed on the board.
-                last_played_row: the row position of the last move.
-                last_played_column: the column position of the last move.
-                trio_token: a valid win token. default 'SOS'
-            """
-            if last_played_letter ==  'S':
-                # check all lines stemming from this cell
-                for row in range(self.board_size):
-                        for column in range(self.board_size):
-                            try:
-                                # sw
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column-1] + self.board[last_played_row+2][last_played_column-2]) == trio_token:
-                                    return True
-                                # w
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row][last_played_column-1] + self.board[last_played_row][last_played_column-2]) == trio_token:
-                                    return True
-                                # nw
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column-1] + self.board[last_played_row-2][last_played_column-2]) == trio_token:
-                                    return True
-                                # n
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column] + self.board[last_played_row-2][last_played_column]) == trio_token:
-                                    return True
-                                # ne
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column+1] + self.board[last_played_row-2][last_played_column+2]) == trio_token:
-                                    return True
-                                # e
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row][last_played_column+1] + self.board[last_played_row][last_played_column+2]) == trio_token:
-                                    return True
-                                # se
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column+1] + self.board[last_played_row+2][last_played_column+2]) == trio_token:
-                                    return True
-                                # s
-                                if (self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column] + self.board[last_played_row+1][last_played_column]) == trio_token:
-                                    return True
-                            except IndexError:
-                                continue
-            elif last_played_letter == 'O':
-                # check all lines centered on this cell
-                for row in range(self.board_size):
-                        for column in range(self.board_size):
-                            try:
-                                # n-s
-                                if (self.board[last_played_row-1][last_played_column] + self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column]) == trio_token:
-                                    return True
-                                # w-e
-                                if (self.board[last_played_row][last_played_column-1] + self.board[last_played_row][last_played_column] + self.board[last_played_row][last_played_column+1]) == trio_token:
-                                    return True
-                                # sw-ne
-                                if (self.board[last_played_row+1][last_played_column-1] + self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column+1]) == trio_token:
-                                    return True
-                                
-                                # nw-se
-                                if (self.board[last_played_row-1][last_played_column-1] + self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column+1]) == trio_token:
-                                    return True    
-                            except IndexError:
-                                continue
+    def check_trios(self, last_played_letter, last_played_row, last_played_column, trio_token='SOS',):
+        """Checks if there are valid trios.
+        
+        Args:
+            gamemode: a valid gamemode.
+            last_played_letter: the last letter placed on the board.
+            last_played_row: the row position of the last move.
+            last_played_column: the column position of the last move.
+            trio_token: a valid win token. default 'SOS'
+        """
+        num_trios = 0
+        if last_played_letter ==  'S':
+            # check all lines stemming from this cell
+            for row in range(self.board_size):
+                    for column in range(self.board_size):
+                        found_trio =False
+                        try:
+                            # sw
+                            if (f'{self.board[last_played_row][last_played_column]}{self.board[last_played_row+1][last_played_column-1]}{self.board[last_played_row+2][last_played_column-2]}') == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            pass
+                        try:
+                           # w
+                            if (f'{self.board[last_played_row][last_played_column]}{self.board[last_played_row][last_played_column-1]}{self.board[last_played_row][last_played_column-2]}') == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            pass
+                        try:
+                            # nw
+                            if (self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column-1] + self.board[last_played_row-2][last_played_column-2]) == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            pass
+                        try:
+                            # n
+                            if (self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column] + self.board[last_played_row-2][last_played_column]) == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            pass
+                        try:
+                            # ne
+                            if (self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column+1] + self.board[last_played_row-2][last_played_column+2]) == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            pass
+                        try:
+                            # e
+                            if (self.board[last_played_row][last_played_column] + self.board[last_played_row][last_played_column+1] + self.board[last_played_row][last_played_column+2]) == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            pass
+                        try:
+                            # se
+                            if (self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column+1] + self.board[last_played_row+2][last_played_column+2]) == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            pass
+                        try:
+                            # s
+                            if (self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column] + self.board[last_played_row+1][last_played_column]) == trio_token:
+                                num_trios += 1
+                                found_trio = True
+                                break
+                        except IndexError:
+                            continue
+                    if found_trio:
+                        break
+        elif last_played_letter == 'O':
+            # check all lines centered on this cell
+            for row in range(self.board_size):
+                    for column in range(self.board_size):
+                        try:
+                            # n-s
+                            if (self.board[last_played_row-1][last_played_column] + self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column]) == trio_token:
+                                num_trios += 1
+                        except IndexError:
+                            pass
+                        try:
+                            # w-e
+                            if (self.board[last_played_row][last_played_column-1] + self.board[last_played_row][last_played_column] + self.board[last_played_row][last_played_column+1]) == trio_token:
+                                num_trios += 1
+                        except IndexError:
+                            pass
+                        try:
+                            # sw-ne
+                            if (self.board[last_played_row+1][last_played_column-1] + self.board[last_played_row][last_played_column] + self.board[last_played_row-1][last_played_column+1]) == trio_token:
+                                num_trios += 1
+                        except IndexError:
+                            pass
+                        try:
+                            # nw-se
+                            if (self.board[last_played_row-1][last_played_column-1] + self.board[last_played_row][last_played_column] + self.board[last_played_row+1][last_played_column+1]) == trio_token:
+                                num_trios += 1
+                        except IndexError:
+                            continue
+        if num_trios > 0:
+            if self.current_player == 'P1':
+                self.p2_score += num_trios
+            elif self.current_player == 'P2':
+                self.p2_score += num_trios
+            return (True, num_trios)
+        return (False, num_trios)
+    
+    def board_full(self):
+        for row in range(self.board_size):
+            for column in range(self.board_size):
+                if self.board[row][column] == ' ':
+                    return False
+        return True
 
     def make_move(self, row, column):
         """Makes a move for the current player at the specified cell, then swaps turn to the next player.
