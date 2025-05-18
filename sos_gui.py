@@ -135,7 +135,12 @@ def gui_move(game, row, column, turn_indicator, p1_score, p2_score):
                         gui_turn.configure(text='P2 wins!')
                         freeze_board(frame)
                     return
-            
+
+        if game.board_full():
+             turn_indicator.configure(text=f'It\'s a tie!')
+             freeze_board(frame)
+             window.update_idletasks()
+
         turn_indicator.config(text=(game.get_current_player() + '\'s turn'))
         
     
